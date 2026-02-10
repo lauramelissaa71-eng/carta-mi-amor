@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Carta para ti 🤍</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500;700&display=swap');
+
+body{
+  margin:0;
+  font-family:'Dancing Script', cursive;
+  background:linear-gradient(180deg,#ffe6e6,#fff);
+  overflow-x:hidden;
+  overflow-y:auto;
+}
+
+/* CONTENEDORES */
+.container{
+  padding:20px;
+  text-align:center;
+  position:relative;
+  z-index:2;
+}
+
+.card{
+  background:white;
+  max-width:700px;
+  margin:auto;
+  padding:35px;
+  border-radius:25px;
+  box-shadow:0 0 30px rgba(255,0,0,.25);
+}
+
+/* TEXTO */
+h2{
+  font-size:36px;
+  color:#c9184a;
+}
+
+p{
+  font-size:22px;
+  line-height:1.8;
+  color:#5a1a2e;
+}
+
+/* INPUT */
+input{
+  padding:12px;
+  width:80%;
+  border-radius:15px;
+  border:1px solid #ccc;
+  font-size:18px;
+}
+
+button{
+  margin-top:20px;
+  padding:12px 30px;
+  border:none;
+  border-radius:25px;
+  background:#ff4d6d;
+  color:white;
+  font-size:18px;
+  cursor:pointer;
+}
+
+/* 🤍 CORAZONES */
+.heart{
+  position:fixed;
+  top:-10vh;
+  animation:fall linear infinite;
+  pointer-events:none;
+  z-index:1;
+  font-size:22px;
+}
+
+@keyframes fall{
+  0%{
+    transform:translateY(-10vh);
+    opacity:0;
+  }
+  10%{ opacity:1; }
+  100%{
+    transform:translateY(110vh);
+    opacity:0;
+  }
+}
+
+/* 💋 BESO ANIMADO (IGUAL AL ORIGINAL) */
+#kiss{
+  font-size:50px;
+  animation:pulse 1s infinite;
+  display:inline-block;
+}
+
+@keyframes pulse{
+  0%{ transform:scale(1); }
+  50%{ transform:scale(1.25); }
+  100%{ transform:scale(1); }
+}
+</style>
+</head>
+
+<body>
+
+<!-- 🎵 MÚSICA -->
+<audio id="music" loop>
+  <source src="musica.mp3" type="audio/mpeg">
+</audio>
+
+<!-- 🎤 VOZ -->
+<audio id="voice">
+  <source src="voz.mp3" type="audio/mpeg">
+</audio>
+
+<!-- LOGIN -->
+<div class="container" id="login">
+  <div class="card">
+    <h2>❤️ Solo tú puedes leer esto ❤️</h2>
+    <p>Pista: La comida que siempre nos recuerda al inicio 🍽️</p>
+
+    <input type="password" id="pass" placeholder="Contraseña">
+    <br>
+    <button onclick="check()">Entrar</button>
+    <p id="error" style="color:red;"></p>
+  </div>
+</div>
+
+<!-- CARTA -->
+<div class="container" id="letter" style="display:none;">
+  <div class="card">
+    <h2>💌 Para el amor de mi vida 💌</h2>
+
+    <p>
+      Amor mío,<br><br>
+      No sé muy bien cómo empezar esta carta, porque siento que ninguna palabra alcanza para decirte todo lo que te amo. Te amo más de lo que mis palabras y mis actos logran expresar, te amo un poquito más cada día, te amo en todas las formas posibles: en las bonitas, en las caóticas, en las simples y en las profundas. Te amo, así, sin medida.
+Gracias por compartir estos dos años conmigo. De verdad han sido los mejores años de mi vida. Gracias por llenarme de amor, de paciencia y de cariño, por estar ahí incluso cuando estoy brava, cansada o difícil, y aun así elegir ser comprensible, tierno y amoroso conmigo. Eso no lo hace cualquiera.
+Sé que a veces tengo comportamientos que no debería tener, sobre todo contigo, y lo siento. Porque tú eres, sin duda, el hombre más increíble que la vida pudo poner en mi camino, y me siento inmensamente afortunada de amarte y de que me ames.
+Quiero que nunca olvides que te amo a pesar de todo, con todo y por todo. Perdóname si hoy no puedo darte un regalo material mejor, pero quiero que sepas que esto lo hice con mis propias manos y con todo mi corazón, pensando en ti y solo en ti.
+Te amo desbordadamente, más de lo que imaginas y más de lo que jamás podré explicar.
+      <br><br>
+      Gracias por existir,<br>
+      por amarme,<br>
+      por ser mi lugar seguro.
+      <br><br>
+      Feliz aniversario mi gordo hermoso🤍
+    </p>
+
+    <div id="kiss">💋</div>
+  </div>
+</div>
+
+<script>
+const PASSWORD = "papitas";
+
+function check(){
+  const input = document.getElementById("pass").value.toLowerCase();
+  if(input === PASSWORD){
+    document.getElementById("login").style.display="none";
+    document.getElementById("letter").style.display="block";
+
+    document.getElementById("music").play();
+    document.getElementById("voice").play();
+  } else {
+    document.getElementById("error").innerText="Intenta otra vez ❤️";
+  }
+}
+
+/* 🤍 GENERAR CORAZONES QUE SÍ CAEN */
+function createHeart(){
+  const heart = document.createElement("div");
+  heart.className = "heart";
+  heart.innerHTML = "🤍";
+  heart.style.left = Math.random()*100 + "vw";
+  heart.style.animationDuration = 5 + Math.random()*5 + "s";
+  heart.style.fontSize = 14 + Math.random()*20 + "px";
+  document.body.appendChild(heart);
+
+  setTimeout(() => {
+    heart.remove();
+  }, 10000);
+}
+
+/* crear corazones constantemente */
+setInterval(createHeart, 300);
+</script>
+
+</body>
+</html>
